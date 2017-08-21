@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sy.dao.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="sy.model.Company" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="boss" property="boss" jdbcType="VARCHAR" />
+    <result column="wid" property="wid" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="place" property="place" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <insert id="insert" parameterType="sy.model.Company" >
+    insert into company (name,boss,wid,code,place)
+    values (#{name,jdbcType=VARCHAR},#{boss,jdbcType=VARCHAR},
+    		#{wid,jdbcType=VARCHAR},#{code,jdbcType=VARCHAR},
+    		#{place,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="sy.model.Company" >
+    update company
+    set name = #{name,jdbcType=VARCHAR},
+      boss = #{boss,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="search" parameterType="String" resultType="sy.model.Company">
+  	select * from company where name like #{name}
+  </select>
+  <select id="searchByNameTime" resultType="sy.model.Company">
+  	select * from company where name like #{com_name} and expire_time > #{com_time}
+  </select>
+</mapper>
